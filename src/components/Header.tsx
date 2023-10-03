@@ -19,7 +19,7 @@ const Header: React.FC<Props> = ({ onLangSelect }) => {
     <header>
       <h1>World 🌎</h1>
       <select value={lang} onChange={handleLangSelect}>
-        <option value="A">Select language</option>
+        <option value="">Select language</option>
         {options.map(option => {
           return (
             <option key={option.value} value={option.label}>
