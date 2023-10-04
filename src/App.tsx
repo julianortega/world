@@ -41,7 +41,7 @@ export const App: React.FC = () => {
     setPage(newPage)
   }
 
-  const pageCount = Math.ceil(countries.length / pageSize)
+  const pageCount = Math.ceil(filteredCountries.length / pageSize)
 
   return (
     <div className="App">
