@@ -22,7 +22,7 @@ const Header: React.FC<Props> = ({ onLangSelect }) => {
         <option value="">Select language</option>
         {options.map(option => {
           return (
-            <option key={option.value} value={option.label}>
+            <option key={option.value} value={option.value}>
               {option.label}
             </option>
           )

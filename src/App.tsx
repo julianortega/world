@@ -8,15 +8,14 @@ import { Pagination } from './components/Pagination'
 
 export const App: React.FC = () => {
   const [countries, setCountries] = useState([])
+  const [filteredCountries, setFilteredCountries] = useState([])
   const [world, setWorld] = useState<WorldData[]>([])
   const [lang, setLang] = useState('')
   const [page, setPage] = useState(1)
   const pageSize = 10
 
-  const param = lang ? `lang/${lang}` : 'all'
-
   useEffect(() => {
-    fetch(`https://restcountries.com/v3.1/${param}?fields=name,capital,region,flags,cca2,population`)
+    fetch('https://restcountries.com/v3.1/all?fields=name,capital,region,flags,cca2,population,languages')
       .then(async res => await res.json())
       .then(data => {
         setCountries(data)
@@ -24,14 +23,19 @@ export const App: React.FC = () => {
       .catch(err => {
         console.log(err)
       })
-  }, [param])
+  }, [])
 
   useEffect(() => {
-    setWorld(countries.map((c: Country) => ({
+    const filteredCountries = lang ? countries.filter((c: Country) => c.languages[lang]) : countries
+    setFilteredCountries(filteredCountries)
+  }, [lang, countries])
+
+  useEffect(() => {
+    setWorld(filteredCountries.map((c: Country) => ({
       country: c.cca2.toLowerCase(),
       value: c.population
     })))
-  }, [countries])
+  }, [filteredCountries, countries])
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage)
@@ -52,7 +56,7 @@ export const App: React.FC = () => {
         data={world}
       />
       <CountriesList 
-        countries={countries} 
+        countries={filteredCountries} 
         page={page} 
         pageSize={pageSize} 
       />
