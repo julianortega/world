@@ -3,6 +3,17 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julianortega/world.git"
+  },
+  "keywords": [
+    "react",
+    "maps",
+    "worldmap"
+  ],
+  "author": "Julian Ortega (https://github.com/julianortega)",
+  "license": "MIT",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
