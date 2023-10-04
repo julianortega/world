@@ -37,14 +37,6 @@ export const App: React.FC = () => {
     setPage(newPage)
   }
 
-  const handlePrevPage = () => {
-    setPage(page - 1)
-  }
-
-  const handleNextPage = () => {
-    setPage(page + 1)
-  }
-
   const pageCount = Math.ceil(countries.length / pageSize)
 
   return (
@@ -59,8 +51,16 @@ export const App: React.FC = () => {
         size="responsive"
         data={world}
       />
-      <CountriesList countries={countries} page={page} pageSize={pageSize} />
-      <Pagination page={page} pageCount={pageCount} onPageChange={handlePageChange} />
+      <CountriesList 
+        countries={countries} 
+        page={page} 
+        pageSize={pageSize} 
+      />
+      <Pagination 
+        page={page} 
+        pageCount={pageCount} 
+        onPageChange={handlePageChange} 
+      />
     </div>
   )
 }
