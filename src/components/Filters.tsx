@@ -5,9 +5,10 @@ import '../styles/Filters.css'
 type Props = {
   onLangSelect: (lang: string) => void
   onSortChange: (sort: string) => void
+  onSearchChange: (search: string) => void
 }
 
-const Filters: React.FC<Props> = ({ onLangSelect, onSortChange }) => {
+const Filters: React.FC<Props> = ({ onLangSelect, onSortChange, onSearchChange }) => {
   const [langOption, setLangOption] = useState('')
   const [sortOption, setSortOption] = useState('')
   const [searchQuery, setSearchQuery] = useState('')
@@ -25,7 +26,10 @@ const Filters: React.FC<Props> = ({ onLangSelect, onSortChange }) => {
   }
 
   const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(event.target.value);
+    const searchValue = event.target.value
+    setSearchQuery(searchValue)
+    onSearchChange(searchValue)
+
   }
 
   return (
@@ -33,6 +37,7 @@ const Filters: React.FC<Props> = ({ onLangSelect, onSortChange }) => {
       <div className='search-bar'>
         <input type="text" id="search" value={searchQuery} onChange={handleSearchChange} placeholder='Search a country' />
       </div>
+
       <div className='sort-filters'>
         <div>
           <label htmlFor="sort">Sort by:</label>

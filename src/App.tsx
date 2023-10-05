@@ -15,6 +15,7 @@ export const App: React.FC = () => {
   const [lang, setLang] = useState('')
   const [sort, setSort] = useState('population')
   const [page, setPage] = useState(1)
+  const [searchQuery, setSearchQuery] = useState('')
   const pageSize = 10
 
   useEffect(() => {
@@ -36,8 +37,14 @@ export const App: React.FC = () => {
     } else if (sort === 'name') {
       filteredCountries.sort((a: Country, b: Country) => a.name.common.localeCompare(b.name.common))
     }
-    setFilteredCountries(filteredCountries)
-  }, [lang, countries, sort])
+    const searchResults = filteredCountries.filter((c: Country) => {
+      const nameMatch = c.name.common.toLowerCase().includes(searchQuery.toLowerCase())
+      //const capitalMatch = c.capital?.[0]?.toLowerCase().includes(searchQuery.toLowerCase())
+      //return nameMatch || capitalMatch
+      return nameMatch
+    })
+    setFilteredCountries(searchResults)
+  }, [lang, countries, sort, searchQuery])
 
   useEffect(() => {
     setWorld(filteredCountries.map((c: Country) => ({
@@ -48,7 +55,7 @@ export const App: React.FC = () => {
 
   useEffect(() => {
     setPage(1)
-  }, [lang])
+  }, [lang, sort, searchQuery])
 
   const handlePageChange = (newPage: number) => {
     setPage(newPage)
@@ -63,6 +70,7 @@ export const App: React.FC = () => {
       <Filters 
         onLangSelect={setLang}
         onSortChange={setSort}
+        onSearchChange={setSearchQuery}
       />
       <WorldMap
         size="responsive"
